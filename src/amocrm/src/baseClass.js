@@ -1,16 +1,19 @@
 class BaseClass {
+    CustomError = require('./customError');
+    httpStatus = require('http-status-codes').StatusCodes;
+
     constructor() {
         if (this.constructor === BaseClass) {
             throw new Error("Abstract classes can't be instantiated.");
         }
     }
 
-    validateAccess(params){
+    validateAccess(params) {
         if (!params)
-            throw new Error("Not filled in input params");
+            throw new this.CustomError(this.httpStatus.BAD_REQUEST);
 
         if (!params.access || !params.access.domain || !params.access.token)
-            throw new Error("Not filled in access data")
+            throw new this.CustomError(this.httpStatus.UNAUTHORIZED);
     }
 
     fillHttpQueryParams(queryParams, config) {

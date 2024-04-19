@@ -184,7 +184,7 @@ class Contact extends BaseEntity {
 
         const url = `https://${domain}` + this.#relativePath + "/chats";
         const config = Object.assign({}, this.axiosConfig, params.axiosConfig || {});
-        config.Authorization = "Bearer " + token;
+        config.headers.Authorization = "Bearer " + token;
 
         super.fillHttpQueryParams(params.query, config);
 
@@ -217,7 +217,7 @@ class Contact extends BaseEntity {
         const url = `https://${domain}` + this.#relativePath + "/chats";
         const config = Object.assign({}, this.axiosConfig, params.axiosConfig || {});
         const data = params.rawData || [params.link];
-        config.Authorization = "Bearer " + token;
+        config.headers.Authorization = "Bearer " + token;
 
         const response = await this.axiosInstance.post(url, data, config);
 

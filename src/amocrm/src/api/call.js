@@ -1,5 +1,5 @@
-const BaseEntity = require("../entity/baseEntity");
+const BaseClass = require("../baseClass");
 
-class Call extends BaseEntity {}
+class Call extends BaseClass  {}
 
 module.exports = Call;

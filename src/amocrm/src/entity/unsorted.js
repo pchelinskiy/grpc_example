@@ -259,7 +259,7 @@ class Unsorted extends BaseEntity {
         const url = `https://${domain}` + this.#relativePath + `/${params.uid}/accept`;
         const config = Object.assign({}, this.axiosConfig, params.axiosConfig || {});
         const data = params.rawData || params.additional;
-        config.Authorization = "Bearer " + token;
+        config.headers.Authorization = "Bearer " + token;
 
         return (await this.axiosInstance.post(url, data, config));
     }
@@ -285,7 +285,7 @@ class Unsorted extends BaseEntity {
         const url = `https://${domain}` + this.#relativePath + `/${params.uid}/decline`;
         const config = Object.assign({}, this.axiosConfig, params.axiosConfig || {});
         const data = params.rawData || params.additional;
-        config.Authorization = "Bearer " + token;
+        config.headers.Authorization = "Bearer " + token;
 
         return (await this.axiosInstance.delete(url, data, config));
     }

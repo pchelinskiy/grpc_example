@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package account.types;
+
+message Form {
+  string default = 1;
+  optional string accusative = 2;
+  optional string dative = 3;
+  optional string genitive = 4;
+  optional string instrumental = 5;
+  optional string prepositional = 6;
+}
+
+message Lang {
+  string gender = 1;
+  Form plural_form = 2;
+  Form singular_form = 3;
+}
+
+message Entity {
+  Lang en = 1;
+  Lang es = 2;
+  Lang pr = 3;
+  Lang ru = 4;
+}
+
+message AmojoRights {
+  bool can_direct = 1;
+  bool can_create_groups = 2;
+}
+
+message UserGroup {
+  int32 id = 1;
+  string name = 2;
+}
+
+message TaskType {
+  int32 id = 1;
+  string name = 2;
+  string color = 3;
+  int32 icon_id = 4;
+  string code = 5;
+}
+
+message DatetimeSettings {
+  string date_format = 1;
+  string date_pattern = 2;
+  string short_date_pattern = 3;
+  string short_time_pattern = 4;
+  string time_format = 5;
+  string timezone = 6;
+  string timezone_offset = 7;
+}
+
+message EntityNames {
+  Entity invoices = 1;
+  Entity leads = 2;
+}
+
+message invoicesSettings {
+  string lang = 1;
+  int32 invoices_catalog_id = 2;
+}
+
+message Embedded {
+   optional AmojoRights amojo_rights = 1;
+   repeated UserGroup user_groups = 2;
+   repeated TaskType task_types = 3;
+   optional DatetimeSettings datetime_settings = 4;
+}

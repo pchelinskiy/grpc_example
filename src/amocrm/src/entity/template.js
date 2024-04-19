@@ -191,7 +191,7 @@ class Template extends BaseEntity {
         const url = `https://${domain}` + this.relativePath + `/${params.id}/review`;
         const config = Object.assign({}, this.axiosConfig, params.axiosConfig || {});
         const data = {};
-        config.Authorization = "Bearer " + token;
+        config.headers.Authorization = "Bearer " + token;
 
         super.fillHttpQueryParams(params.query, config);
 
@@ -222,7 +222,7 @@ class Template extends BaseEntity {
         const url = `https://${domain}` + this.relativePath + `/${params.id}/review/${params.review.id}`;
         const config = Object.assign({}, this.axiosConfig, params.axiosConfig || {});
         const data = params.rawData || params.entity;
-        config.Authorization = "Bearer " + token;
+        config.headers.Authorization = "Bearer " + token;
 
         return (await this.axiosInstance.post(url, data, config));
     }

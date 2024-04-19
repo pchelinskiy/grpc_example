@@ -1,5 +1,4 @@
 const BaseClass = require("../baseClass");
-const e = require("express");
 
 class BaseEntity extends BaseClass {
     constructor() {
@@ -19,9 +18,11 @@ class BaseEntity extends BaseClass {
 
         const url = `https://${domain}` + environment.relativePath;
         const config = Object.assign({}, environment.axiosConfig, params.axiosConfig || {});
-        config.Authorization = "Bearer " + token;
+        config.headers.Authorization = "Bearer " + token;
 
         super.fillHttpQueryParams(params.query, config);
+
+        console.log(config)
 
         return (await environment.axiosInstance.get(url, config));
     }
@@ -29,7 +30,7 @@ class BaseEntity extends BaseClass {
         super.validateAccess(params);
 
         if (isNaN(params.id))
-            throw new Error("Id must be filled in and be an integer");
+            throw new super.CustomError(super.httpStatus.BAD_REQUEST);
 
         const environment = arguments[1];
 
@@ -39,7 +40,7 @@ class BaseEntity extends BaseClass {
 
         const url = `https://${domain}` + environment.relativePath + `${params.id}`;
         const config = Object.assign({}, environment.axiosConfig, params.axiosConfig || {});
-        config.Authorization = "Bearer " + token;
+        config.headers.Authorization = "Bearer " + token;
 
         super.fillHttpQueryParams(params.query, config);
 
@@ -55,7 +56,7 @@ class BaseEntity extends BaseClass {
         const url = `https://${domain}` + environment.relativePath;
         const config = Object.assign({}, environment.axiosConfig, params.axiosConfig || {});
         const data = params.rawData || [params.entity];
-        config.Authorization = "Bearer " + token;
+        config.headers.Authorization = "Bearer " + token;
 
         super.fillHttpQueryParams(params.query, config);
 
@@ -71,7 +72,7 @@ class BaseEntity extends BaseClass {
         const url = `https://${domain}` + environment.relativePath + id;
         const config = Object.assign({}, environment.axiosConfig, params.axiosConfig || {});
         const data = params.rawData || params.entity;
-        config.Authorization = "Bearer " + token;
+        config.headers.Authorization = "Bearer " + token;
 
         super.fillHttpQueryParams(params.query, config);
 
@@ -81,7 +82,7 @@ class BaseEntity extends BaseClass {
         super.validateAccess(params);
 
         if (!params.rawData && isNaN(params.id))
-            throw new Error("Not filled in request body data");
+            throw new super.CustomError(super.httpStatus.BAD_REQUEST);
 
         const environment = arguments[1];
 
@@ -95,7 +96,7 @@ class BaseEntity extends BaseClass {
         else config.data = params.rawData;
 
         const url = `https://${domain}` + environment.relativePath + id;
-        config.Authorization = "Bearer " + token;
+        config.headers.Authorization = "Bearer " + token;
 
         super.fillHttpQueryParams(params.query, config);
 

@@ -1,16 +1,44 @@
 syntax = "proto3";
 
-option java_multiple_files = true;
-option java_package = "io.grpc.examples.helloworld";
-option java_outer_classname = "HelloWorldProto";
-option objc_class_prefix = "HLW";
+option optimize_for = CODE_SIZE;
+
+import "google/protobuf/empty.proto";
+
+import "types/access.types.proto";
+import "types/account.types.proto";
+
+package account;
 
 service Account {
-  rpc getAccount(MyRequest) returns (MyResponse) {}
+  rpc getAccountParams(AccountRequest) returns (AccountResponse) {}
 }
 
-message MyRequest {
+message Query {
+  repeated string with = 1;
 }
 
-message MyResponse {
+message AccountRequest {
+    access.types.Access access = 1;
+    optional Query query = 2;
+}
+
+message AccountResponse {
+  int32 id = 1;
+  string name = 2;
+  string subdomain = 3;
+  int32 current_user_id = 4;
+  string country = 5;
+  string customers_mode = 6;
+  bool is_unsorted_on = 7;
+  bool is_loss_reason_enabled = 8;
+  bool is_helpbot_enabled = 9;
+  bool is_technical_account = 10;
+  int32 contact_name_display_order = 11;
+  optional string amojo_id = 12;
+  optional int32 version = 13;
+  optional string drive_url = 14;
+  optional bool is_api_filter_enabled = 15;
+  optional account.types.EntityNames entity_names = 16;
+  optional account.types.invoicesSettings invoices_settings = 17;
+  optional account.types.Embedded _embedded = 18;
 }

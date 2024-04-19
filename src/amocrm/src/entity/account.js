@@ -16,9 +16,9 @@ class Account extends BaseEntity {
         },
         query: {
             with: []
-        },
-        axiosConfig: undefined
+        }
     }) {
+        console.log(this)
         const response = await super.find(params, {
             relativePath: this.#relativePath,
             axiosConfig: this.axiosConfig,

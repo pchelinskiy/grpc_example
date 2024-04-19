@@ -155,7 +155,7 @@ class Pipeline extends BaseEntity {
 
         const url = `https://${domain}` + this.#relativePath + `/${params.id}/statuses`;
         const config = Object.assign({}, this.axiosConfig, params.axiosConfig || {});
-        config.Authorization = "Bearer " + token;
+        config.headers.Authorization = "Bearer " + token;
 
         super.fillHttpQueryParams(params.query, config);
 
@@ -187,7 +187,7 @@ class Pipeline extends BaseEntity {
 
         const url = `https://${domain}` + this.#relativePath + `/${params.id}/statuses/${params.statusId}`;
         const config = Object.assign({}, this.axiosConfig, params.axiosConfig || {});
-        config.Authorization = "Bearer " + token;
+        config.headers.Authorization = "Bearer " + token;
 
         super.fillHttpQueryParams(params.query, config);
 
@@ -229,7 +229,7 @@ class Pipeline extends BaseEntity {
         const url = `https://${domain}` + this.#relativePath + `/${params.id}/statuses`;
         const config = Object.assign({}, this.axiosConfig, params.axiosConfig || {});
         const data = params.rawData || [params.status];
-        config.Authorization = "Bearer " + token;
+        config.headers.Authorization = "Bearer " + token;
 
         super.fillHttpQueryParams(params.query, config);
 
@@ -272,7 +272,7 @@ class Pipeline extends BaseEntity {
         const url = `https://${domain}` + this.#relativePath + `/${params.id}/statuses/${params.statusId}`;
         const config = Object.assign({}, this.axiosConfig, params.axiosConfig || {});
         const data = params.rawData || [params.status];
-        config.Authorization = "Bearer " + token;
+        config.headers.Authorization = "Bearer " + token;
 
         super.fillHttpQueryParams(params.query, config);
 
@@ -301,7 +301,7 @@ class Pipeline extends BaseEntity {
 
         const url = `https://${domain}` + this.#relativePath + `/${params.id}/statuses/${params.statusId}`;
         const config = Object.assign({}, this.axiosConfig, params.axiosConfig || {});
-        config.Authorization = "Bearer " + token;
+        config.headers.Authorization = "Bearer " + token;
 
         super.fillHttpQueryParams(params.query, config);
 

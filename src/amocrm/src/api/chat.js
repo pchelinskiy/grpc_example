@@ -1,4 +1,5 @@
 const Utils = require("../utils");
+const BaseClass = require("../baseClass");
 
 /**
  * @typedef {Object} connect
@@ -23,8 +24,9 @@ const Utils = require("../utils");
  * @property {string} user.profile.email - The email of the user.
  */
 
-class Chat {
+class Chat extends BaseClass  {
     constructor(axiosConfig, axiosInstance, amojoURL, chatApiConfig) {
+        super();
         this.axiosConfig = axiosConfig;
         this.axiosInstance = axiosInstance;
         this.amojoURL = amojoURL;

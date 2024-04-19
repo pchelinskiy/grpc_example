@@ -1,10 +1,12 @@
 const Utils = require("../utils");
+const BaseClass = require("../baseClass");
 
-class OAuth2 {
+class OAuth2 extends BaseClass {
+    mainURL = "https://www.amocrm.ru";
     constructor(axiosConfig, axiosInstance, mainURL, widgetConfig) {
+        super();
         this.axiosConfig = axiosConfig;
         this.axiosInstance = axiosInstance;
-        this.mainURL = mainURL;
         this.widgetConfig = widgetConfig;
     }
 
@@ -12,18 +14,21 @@ class OAuth2 {
         domain: undefined,
         code: undefined,
         refreshToken: undefined,
-        axiosConfig: undefined,
-        rawData: undefined
+        widgetConfig: {
+            client_id: undefined,
+            client_secret: undefined,
+            redirect_uri: undefined
+        },
     }) {
         if (!params || !params.domain || !params.rawData && !params.code && !params.refreshToken) {
-            throw new Error("Not filled in input params")
+            throw new super.CustomError(super.httpStatus.BAD_REQUEST)
         }
 
         if (!this.widgetConfig && !params.rawData) {
             throw new Error("Fill out the widget config")
         }
 
-        const data = params.rawData || Object.assign({}, this.widgetConfig);
+        const data = params.widgetConfig;
         const config = Object.assign({}, this.axiosConfig, params.axiosConfig || {});
 
         if (params.code) {
@@ -52,14 +57,14 @@ class OAuth2 {
 
     async getDomain(params ={
         accessToken: undefined,
-        axiosConfig: undefined
+        mainURL: undefined,
     }) {
         if (!params.accessToken) {
             throw new Error("Not filled in input params");
         }
 
         const config = Object.assign({}, this.axiosConfig, params.axiosConfig || {});
-        config.Authorization = `Bearer ${params.accessToken}`;
+        config.headers.Authorization = `Bearer ${params.accessToken}`;
 
         const response = await this.axiosInstance.get(
             `${this.mainURL}/oauth2/account/subdomain`,

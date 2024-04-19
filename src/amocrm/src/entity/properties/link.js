@@ -24,7 +24,7 @@ class Link extends BaseProperty {
         const id = params.id ? `${params.id}/` : "";
         const url = `https://${domain}/api/v4/${environment.entityName}/${id}links`;
         const config = Object.assign({}, environment.axiosConfig, params.axiosConfig || {});
-        config.Authorization = "Bearer " + token;
+        config.headers.Authorization = "Bearer " + token;
 
         super.fillHttpQueryParams(params.query, config);
 
@@ -66,7 +66,7 @@ class Link extends BaseProperty {
         const id = params.id ? `${params.id}/` : "";
         const url = `https://${domain}/api/v4/${environment.entityName}/${id}link`;
         const config = Object.assign({}, environment.axiosConfig, params.axiosConfig || {});
-        config.Authorization = "Bearer " + token;
+        config.headers.Authorization = "Bearer " + token;
         const data = params.rawData || [params.link];
 
         const response = await environment.axiosInstance.post(url, data, config);
@@ -104,7 +104,7 @@ class Link extends BaseProperty {
         const id = params.id ? `${params.id}/` : "";
         const url = `https://${domain}/api/v4/${environment.entityName}/${id}unlink`;
         const config = Object.assign({}, environment.axiosConfig, params.axiosConfig || {});
-        config.Authorization = "Bearer " + token;
+        config.headers.Authorization = "Bearer " + token;
         const data = params.rawData || [params.unlink];
 
         await environment.axiosInstance.post(url, data, config);

@@ -1,14 +1,13 @@
-const AmoClient = require("./src/amoClient");
+const Api = require("./src/api");
+const defaults = require("./src/defaults");
+const axiosInstance = require("./src/axios");
+const Entity = require("./src/entity");
 
-module.exports = ({
-    /**
-     * Creates a new AmoClient with optional parameter.
-     *
-     * @param {ConfigObject} optional - description of parameter {@link ConfigObject}
-     * @return {AmoClient} a new AmoClient instance
-     */
-    createClient: function (optional) {
-        return new AmoClient(optional);
-    },
-    Utils: require("./src/utils"),
-})
+class AmoClient {
+   constructor() {
+      this.Api = new Api(defaults.axiosConfig, axiosInstance);
+      this.Entity = new Entity(defaults.axiosConfig, axiosInstance);
+   }
+}
+
+module.exports = new AmoClient();

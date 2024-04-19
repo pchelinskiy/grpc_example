@@ -3,15 +3,6 @@ const MD5 = require("md5");
 const crypto = require("crypto");
 
 class Utils {
-    static checkKeys(jsonObject, keysObject) {
-        for (const key in keysObject) {
-            if (typeof jsonObject[key] !== keysObject[key]) {
-                throw new Error(`${key} key must be filled in and be of type ${keysObject[key]}`);
-            }
-        }
-        return true;
-    }
-
     static jwtParse(token) {
         if (token) {
             return parseJwt(token);
